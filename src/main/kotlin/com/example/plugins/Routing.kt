@@ -10,6 +10,18 @@ fun Application.configureRouting() {
     get("/") {
       call.respondText("Hello World!")
     }
+    get("/note/{id}") {
+      val id = call.parameters["id"]
+      call.respond("${id}")
+
+    }
+    get("/note") {
+      val id = call.request.queryParameters["id"]
+      call.respond("${id}")
+
+    }
+
+
     //
     route("/notes") {
       route("/create") {
