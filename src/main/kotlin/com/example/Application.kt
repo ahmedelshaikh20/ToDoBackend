@@ -1,9 +1,10 @@
 package com.example
 
 import com.example.authentication.configureSecurity
+import com.example.data.configureDatabases
 import com.example.data.repository.UserRepositoryImpl
+import com.example.di.AppModule
 import com.example.routes.*
-import com.example.service.UserServiceImpl
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -12,8 +13,9 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-  val userService = UserServiceImpl()
-  val userRepository = UserRepositoryImpl(userService)
+  val userService =AppModule.provideUserService()
+  val jwtService = AppModule.provideJwtService()
+  val userRepository = UserRepositoryImpl(userService, jwtService)
   configureDatabases()
   configureSerialization()
   configureSecurity()

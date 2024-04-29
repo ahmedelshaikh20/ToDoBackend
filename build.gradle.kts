@@ -6,6 +6,8 @@ val postgresql_version: String by project
 plugins {
   kotlin("jvm") version "1.9.23"
   id("io.ktor.plugin") version "2.3.10"
+  kotlin("plugin.serialization") version "1.4.10"
+
 }
 
 group = "com.example"
@@ -42,6 +44,7 @@ dependencies {
   implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
   implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
   implementation("org.postgresql:postgresql:$postgres_version")
+  implementation ("com.beust:klaxon:5.5")
 
 
   // Usingb MySql

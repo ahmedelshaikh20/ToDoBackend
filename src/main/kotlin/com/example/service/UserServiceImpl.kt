@@ -4,7 +4,7 @@ import com.example.authentication.hash
 import com.example.data.model.User
 import com.example.data.repository.toUser
 import com.example.data.table.UserTable
-import com.example.routes.dbQuery
+import com.example.data.dbQuery
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 
@@ -14,7 +14,7 @@ class UserServiceImpl : UserService {
       UserTable.insert { userTable ->
         userTable[email] = registrationParams.email
         userTable[name] = registrationParams.name
-        userTable[hashPassword] = hash(registrationParams.password.toString())
+        userTable[hashPassword] = hash(registrationParams.password)
       }
     }
     return findUserByEmail(registrationParams.email)

@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.data.repository.UserRepository
+import com.example.service.LoginParams
 import com.example.service.RegistrationParams
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -16,7 +17,15 @@ fun Application.authRoutes(userRepository: UserRepository) {
         val result = userRepository.registerUser(body)
         call.respond(result.statusCode, result)
       }
+      post ("/login"){
+        val body = call.receive<LoginParams>()
+        val result=userRepository.loginUser(body)
+        call.respond(result.statusCode, result)
+
+      }
     }
+
+
 
   }
 

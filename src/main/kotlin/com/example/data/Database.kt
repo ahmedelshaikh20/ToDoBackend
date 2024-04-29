@@ -1,4 +1,4 @@
-package com.example.routes
+package com.example.data
 
 import com.example.data.table.UserTable
 import com.zaxxer.hikari.HikariConfig
