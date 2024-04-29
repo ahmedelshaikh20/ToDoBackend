@@ -1,6 +1,5 @@
-package com.example.plugins
+package com.example.routes
 
-import com.example.data.model.User
 import com.example.data.table.UserTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

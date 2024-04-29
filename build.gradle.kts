@@ -50,4 +50,7 @@ dependencies {
   implementation("io.insert-koin:koin-ktor:$koinKtor")
   //connection pooling
   implementation("com.zaxxer:HikariCP:$hikaricpVersion")
+
+  implementation ("io.ktor:ktor-serialization-jackson:$ktor_version")
+
 }

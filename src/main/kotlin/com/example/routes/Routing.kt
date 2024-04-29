@@ -1,11 +1,14 @@
-package com.example.plugins
+package com.example.routes
 
+import com.example.data.repository.UserRepository
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Application.configureRouting() {
+fun Application.configureRouting(userRepository: UserRepository) {
+
+  authRoutes(userRepository)
   routing {
     get("/") {
       call.respondText("Hello World!")
