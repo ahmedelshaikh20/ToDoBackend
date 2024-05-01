@@ -1,8 +1,10 @@
 package com.example.di
 
 import com.example.authentication.JwtService
-import com.example.service.UserService
-import com.example.service.UserServiceImpl
+import com.example.service.userservice.UserService
+import com.example.service.userservice.UserServiceImpl
+import com.example.service.noteservice.NoteService
+import com.example.service.noteservice.NoteServiceImpl
 
 object AppModule {
   fun provideJwtService(): JwtService {
@@ -13,6 +15,11 @@ object AppModule {
 
   fun provideUserService(): UserService {
     return UserServiceImpl()
+  }
+
+
+  fun provideNoteService(): NoteService {
+    return NoteServiceImpl()
   }
 
 

@@ -2,12 +2,10 @@ package com.example.data.repository
 
 import com.beust.klaxon.Parser
 import com.example.authentication.JwtService
-import com.example.authentication.hash
 import com.example.service.LoginParams
 import com.example.service.RegistrationParams
-import com.example.service.UserService
+import com.example.service.userservice.UserService
 import com.example.utils.BaseResponse
-import kotlinx.serialization.json.*
 import java.lang.StringBuilder
 
 class UserRepositoryImpl(private val userService: UserService, private val jwtService: JwtService) : UserRepository {
@@ -38,21 +36,22 @@ class UserRepositoryImpl(private val userService: UserService, private val jwtSe
     if (isMissingLoginParams(loginParams))
       return BaseResponse.ErrorResponse(message = "Missing Field")
     else {
-      val user = userService.findUserByEmail(loginParams.email)
+      val user = userService.loginUser(loginParams.email, loginParams.password)
       if (user == null) {
-        return BaseResponse.ErrorResponse(message = "No Such Email Registered")
-      } else if (user.hashPassword == hash(loginParams.password)) {
-        val parser: Parser = Parser()
-        val stringBuilder: StringBuilder = StringBuilder("{\"token\":\"${jwtService.generateToken(user)}\"}")
+        return BaseResponse.ErrorResponse( message = "Wrong Password or Email")
+      }  else
+      {
+        val parser: Parser = Parser.default()
+        val stringBuilder = StringBuilder("{\"token\":\"${jwtService.generateToken(user)}\"}")
         val json = parser.parse(stringBuilder)
-
         return BaseResponse.SuccessResponse(
 
           data = json,
           message = "Success"
         )
-      } else
-        return BaseResponse.ErrorResponse(message = "Wrong Password")
+      }
+
+       // return BaseResponse.ErrorResponse(message = "Wrong Password")
 
 
     }

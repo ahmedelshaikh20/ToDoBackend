@@ -1,10 +1,11 @@
-package com.example.service
+package com.example.service.userservice
 
 import com.example.authentication.hash
-import com.example.data.model.User
+import com.example.data.model.user.User
 import com.example.data.repository.toUser
-import com.example.data.table.UserTable
+import com.example.data.table.usertable.UserTable
 import com.example.data.dbQuery
+import com.example.service.RegistrationParams
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 
@@ -29,6 +30,15 @@ class UserServiceImpl : UserService {
       .singleOrNull()
     return@dbQuery user
 
+  }
+
+  override suspend fun loginUser(email: String, password: String): User? {
+    val user = findUserByEmail(email) ?: return null
+    return if (user.hashPassword == hash(password)) {
+      user
+    } else {
+      null
+    }
   }
 
 
